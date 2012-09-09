@@ -50,13 +50,16 @@ class Plugin(XBMCMixin):
                      builtin ``__file__`` variable can used.
     '''
 
-    def __init__(self, name, addon_id, filepath=__main__.__file__):
-        self._name = name
+    def __init__(self, name='', addon_id='', filepath=__main__.__file__):
+        if addon_id:
+            self._addon = xbmcaddon.Addon(id=addon_id)
+        else:
+            self._addon = xbmcaddon.Addon()
+        self._addon_id = addon_id or self.addon.getAddonInfo('id')
+        self._name = name or self._addon.getAddonInfo('name')
         self._filepath = filepath
-        self._addon_id = addon_id
         self._routes = []
         self._view_functions = {}
-        self._addon = xbmcaddon.Addon(id=self._addon_id)
 
         # Keeps track of the added list items
         self._current_items = []
