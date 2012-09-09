@@ -234,6 +234,16 @@ class Plugin(XBMCMixin):
         pathqs = rule.make_path_qs(items)
         return 'plugin://%s%s' % (self._addon_id, pathqs)
 
+    def route_for(self, path):
+        '''Returns the view function for given path, None if no route exist'''
+        for rule in self._routes:
+            try:
+                view_func, items = rule.match(path)
+            except NotFoundException:
+                continue
+            return view_func
+        return None
+
     def _dispatch(self, path):
         for rule in self._routes:
             try:
