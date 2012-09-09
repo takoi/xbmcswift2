@@ -10,6 +10,7 @@
 '''
 import os
 import sys
+import __main__
 import pickle
 import xbmcswift2
 from urllib import urlencode
@@ -49,7 +50,7 @@ class Plugin(XBMCMixin):
                      builtin ``__file__`` variable can used.
     '''
 
-    def __init__(self, name, addon_id, filepath):
+    def __init__(self, name, addon_id, filepath=__main__.__file__):
         self._name = name
         self._filepath = filepath
         self._addon_id = addon_id
