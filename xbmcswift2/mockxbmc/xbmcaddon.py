@@ -3,7 +3,7 @@ from xbmcswift2.logger import log
 
 
 class Addon(object):
-    def __init__(self, id):
+    def __init__(self, id=''):
         self._id = id
         self._strings = {}
         self._settings = {}
