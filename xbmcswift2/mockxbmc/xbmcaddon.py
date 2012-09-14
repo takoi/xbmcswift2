@@ -13,7 +13,7 @@ class Addon(object):
             'fanart', 'icon', 'id', 'name', 'path', 'profile', 'stars', 'summary',
             'type', 'version']
         assert id in properties, '%s is not a valid property.' % id
-        return True
+        return "unknown"
 
     def getLocalizedString(self, id):
         key = str(id)
