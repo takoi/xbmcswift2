@@ -14,6 +14,7 @@ import pickle
 import xbmcswift2
 from urllib import urlencode
 from functools import wraps
+from collections import Iterable
 from optparse import OptionParser
 try:
     from urlparse import parse_qs
@@ -297,11 +298,8 @@ class Plugin(XBMCMixin):
             # Only call self.finish() for UI container listing calls to plugin
             # (handle will be >= 0). Do not call self.finish() when called via
             # RunPlugin() (handle will be -1).
-            if not self._end_of_directory and self.handle >= 0:
-                if listitems is None:
-                    self.finish(succeeded=False)
-                else:
-                    listitems = self.finish(listitems)
+            if not self._end_of_directory and isinstance(listitems, Iterable) and self.handle >= 0:
+                listitems = self.finish(listitems)
 
             return listitems
         raise NotFoundException, 'No matching view found for %s' % path
